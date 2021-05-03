@@ -1,0 +1,294 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Inventory-App",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/auth/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Register",
+                "description": "Create a new account",
+                "operationId": "authRegister",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the user from the account.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "The email of the user from the account.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "description": "The password the account will get to log in.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "confirm_password",
+                        "in": "path",
+                        "description": "The password confirmation to assure the password is correct.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Registration successful.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "The entered parameters are not valid."
+                    },
+                    "409": {
+                        "description": "A User with the given e-mail-address already exists."
+                    }
+                }
+            }
+        },
+        "/auth/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Log in",
+                "description": "Log in and get an access token.",
+                "operationId": "authLogin",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "The email of the user.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "description": "The chosen password of the user.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Registration successful."
+                    },
+                    "422": {
+                        "description": "The entered parameters are not valid."
+                    },
+                    "401": {
+                        "description": "The given e-mail and password do not match."
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Log out",
+                "description": "Log out and make the token invalid.",
+                "operationId": "authLogout",
+                "responses": {
+                    "200": {
+                        "description": "Log out successful."
+                    }
+                }
+            }
+        },
+        "/auth/refresh": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Refresh",
+                "description": "Refresh the time on the access token.",
+                "operationId": "authRefresh",
+                "responses": {
+                    "200": {
+                        "description": "Your access token time is refreshed."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Book": {
+                "required": [
+                    "author",
+                    "language"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "isbn": {
+                        "type": "string",
+                        "example": "ISBN 978-3-86680-192-9"
+                    },
+                    "author": {
+                        "type": "string",
+                        "example": "Beatrix Münzer-Glas"
+                    },
+                    "excerpt": {
+                        "type": "text",
+                        "example": "Dieser Bildband nimmt den Leser mit auf eine Entdeckungsreise ins vergangene Jahrhundert und präsentiert Liebenswertes und Nachdenkliches aus alten Tagen der Stadt Hof und ihres Umlands. Arnd Kluge und Beatrix Münzer-Glas stellen die Menschen aus der Hofer Region in den Mittelpunkt. Über 160 Aufnahmen lassen die Zeit vom Ende des 19. Jahrhunderts bis 1960 wieder lebendig werden. Eine liebevolle Einladung zum Erinnern, Neu- und Wiederentdecken."
+                    },
+                    "release_date": {
+                        "type": "date",
+                        "example": "02-20-2019"
+                    },
+                    "language": {
+                        "type": "string",
+                        "example": "Deutsch"
+                    },
+                    "inventoryItem": {
+                        "$ref": "#/components/schemas/InventoryItem"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Book"
+                }
+            },
+            "InventoryItem": {
+                "required": [
+                    "name"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Buch: Stadt und Landkreis Hof"
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/Book"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "InventoryItem"
+                }
+            },
+            "Location": {
+                "required": [
+                    "branch",
+                    "room"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "branch": {
+                        "type": "string",
+                        "example": "Academy"
+                    },
+                    "room": {
+                        "type": "string",
+                        "example": "301"
+                    },
+                    "shelf": {
+                        "type": "string",
+                        "example": "1"
+                    },
+                    "compartment": {
+                        "type": "string",
+                        "example": "1a"
+                    },
+                    "description": {
+                        "type": "text",
+                        "example": "Dieser Ort gehört zu dem Lernenden Jeremy Becker"
+                    },
+                    "inventoryItems": {
+                        "$ref": "#/components/schemas/InventoryItem"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Location"
+                }
+            },
+            "User": {
+                "required": [
+                    "name",
+                    "email",
+                    "password"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": "true",
+                        "example": "1"
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "Jeremy Becker"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "jeremy.becker@twofold.swiss"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "location": {
+                        "$ref": "#/components/schemas/Location"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "Location"
+                }
+            }
+        }
+    }
+}

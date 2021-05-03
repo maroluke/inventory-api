@@ -10,6 +10,17 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Lumen\Auth\Authorizable;
 
+/**
+ * @OA\Schema(
+ *  required={"name", "email", "password"},
+ *  @OA\Xml(name="Location"),
+ *  @OA\Property(property="id", type="integer", readOnly="true", example="1"),
+ *  @OA\Property(property="name", type="string", example="Jeremy Becker"),
+ *  @OA\Property(property="email", type="string", example="jeremy.becker@twofold.swiss"),
+ *  @OA\Property(property="password", type="string"),
+ *  @OA\Property(property="location", ref="#/components/schemas/Location"),
+ * )
+ */
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasFactory;
