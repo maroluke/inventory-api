@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Location;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+    }
+
     /**
      * @OA\Post(
      *  path="/auth/register",
@@ -79,6 +86,14 @@ class AuthController extends Controller
             $plainPassword = $request->input('password');
             $user->password = app('hash')->make($plainPassword);
 
+            $location = new Location;
+            $location->branch = 'Academy';
+            $location->room = '000';
+            $location->description = 'Arbeitsplatz von ' . $request->name;
+            $location->save();
+
+            $user->location_id = $location->id;
+
             $user->save();
 
             return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
@@ -149,9 +164,14 @@ class AuthController extends Controller
      *  description="Log out and make the token invalid.",
      *  operationId="authLogout",
      *  tags={"auth"},
+     *  security={{"bearerAuth":{}}},
      *  @OA\Response(
      *      response=200,
      *      description="Log out successful.",
+     *  ),
+     *  @OA\Response(
+     *      response=401,
+     *      description="Authorization token invalid.",
      *  ),
      * )
      */
@@ -169,9 +189,14 @@ class AuthController extends Controller
      *  description="Refresh the time on the access token.",
      *  operationId="authRefresh",
      *  tags={"auth"},
+     *  security={{"bearerAuth":{}}},
      *  @OA\Response(
      *      response=200,
      *      description="Your access token time is refreshed.",
+     *  ),
+     *  @OA\Response(
+     *      response=401,
+     *      description="Authorization token invalid.",
      *  ),
      * )
      */

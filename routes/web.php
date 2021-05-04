@@ -33,3 +33,20 @@ $router->group([
     });
     
 });
+
+$router->group([
+    'middleware' => 'auth',
+    'prefix' => 'api'
+], function () use ($router) {
+    $router->get('/location', 'LocationController@index');
+    $router->post('/location', 'LocationController@store');
+    $router->get('/location/{id}', 'LocationController@show');
+    $router->patch('/location/{id}', 'LocationController@update');
+    $router->delete('/location/{id}', 'LocationController@destroy');
+
+    $router->get('/inventoryitem', 'InventoryItemController@index');
+    $router->post('/inventoryitem', 'InventoryItemController@store');
+    $router->get('/inventoryitem/{id}', 'InventoryItemController@show');
+    $router->patch('/inventoryitem/{id}', 'InventoryItemController@update');
+    $router->delete('/inventoryitem/{id}', 'InventoryItemController@destroy');
+});

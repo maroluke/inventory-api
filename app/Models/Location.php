@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  *  @OA\Property(property="shelf", type="string", example="1"),
  *  @OA\Property(property="compartment", type="string", example="1a"),
  *  @OA\Property(property="description", type="text", example="Dieser Ort gehört zu dem Lernenden Jeremy Becker"),
- *  @OA\Property(property="inventoryItems", ref="#/components/schemas/InventoryItem"),
+ *  @OA\Property(property="inventoryItems", type="object", type="array",  @OA\Items(ref="#/components/schemas/InventoryItem")),
  *  @OA\Property(property="user", ref="#/components/schemas/User"),
  * )
  */

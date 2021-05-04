@@ -123,8 +123,16 @@
                 "responses": {
                     "200": {
                         "description": "Log out successful."
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         },
         "/auth/refresh": {
@@ -138,8 +146,784 @@
                 "responses": {
                     "200": {
                         "description": "Your access token time is refreshed."
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/book": {
+            "get": {
+                "tags": [
+                    "book"
+                ],
+                "summary": "List Books",
+                "description": "Get a list of all books.",
+                "operationId": "bookList",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Book"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "book"
+                ],
+                "summary": "Create a Book",
+                "description": "Create a new book.",
+                "operationId": "bookCreate",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the new inventory item the book belongs to.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "The user who owns the object.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "location_id",
+                        "in": "path",
+                        "description": "The location where the book is stored.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "isbn",
+                        "in": "path",
+                        "description": "The isbn of the book.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "The author of the book.",
+                        "required": true,
+                        "schema": {
+                            "type": "sting"
+                        }
+                    },
+                    {
+                        "name": "excerpt",
+                        "in": "path",
+                        "description": "A short text describing the book.",
+                        "required": false,
+                        "schema": {
+                            "type": "text"
+                        }
+                    },
+                    {
+                        "name": "release_date",
+                        "in": "path",
+                        "description": "The date the book was released on.",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "language",
+                        "in": "path",
+                        "description": "The language the book is written in.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Book"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "422": {
+                        "description": "The entered parameters are not valid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/book/{id}": {
+            "get": {
+                "tags": [
+                    "book"
+                ],
+                "summary": "Show Book",
+                "description": "Get a specific book.",
+                "operationId": "bookShow",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Book"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "404": {
+                        "description": "The Book does not exist."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "book"
+                ],
+                "summary": "Delete Book",
+                "description": "Delete a book.",
+                "operationId": "bookDelete",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "404": {
+                        "description": "The Book does not exist."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "book"
+                ],
+                "summary": "Update a book",
+                "description": "Update a existing book.",
+                "operationId": "bookUpdate",
+                "parameters": [
+                    {
+                        "name": "isbn",
+                        "in": "path",
+                        "description": "The isbn of the book.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "author",
+                        "in": "path",
+                        "description": "The author of the book.",
+                        "required": false,
+                        "schema": {
+                            "type": "sting"
+                        }
+                    },
+                    {
+                        "name": "excerpt",
+                        "in": "path",
+                        "description": "A short text describing the book.",
+                        "required": false,
+                        "schema": {
+                            "type": "text"
+                        }
+                    },
+                    {
+                        "name": "release_date",
+                        "in": "path",
+                        "description": "The date the book was released on.",
+                        "required": false,
+                        "schema": {
+                            "type": "date"
+                        }
+                    },
+                    {
+                        "name": "language",
+                        "in": "path",
+                        "description": "The language the book is written in.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Book"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "422": {
+                        "description": "The entered parameters are not valid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/inventoryitem": {
+            "get": {
+                "tags": [
+                    "inventoryItem"
+                ],
+                "summary": "List InventoryItems",
+                "description": "Get a list of all inventoryItems.",
+                "operationId": "inventoryItemList",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/InventoryItem"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "inventoryItem"
+                ],
+                "summary": "Create an InventoryItem",
+                "description": "Create a new inventory item.",
+                "operationId": "inventoryItemCreate",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the new inventory item.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type_id",
+                        "in": "path",
+                        "description": "The id from the child object.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type_type",
+                        "in": "path",
+                        "description": "The class from the child object.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "The user who owns the object.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "location_id",
+                        "in": "path",
+                        "description": "The location where the inventory item is stored.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InventoryItem"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "422": {
+                        "description": "The entered parameters are not valid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/inventoryitem/{id}": {
+            "get": {
+                "tags": [
+                    "inventoryItem"
+                ],
+                "summary": "Show InventoryItem",
+                "description": "Get a specific inventory item.",
+                "operationId": "inventoryItemShow",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InventoryItem"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "404": {
+                        "description": "The InventoryItem does not exist."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "inventoryItem"
+                ],
+                "summary": "Delete InventoryItem",
+                "description": "Delete an inventory item.",
+                "operationId": "inventoryItemDelete",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "404": {
+                        "description": "The InventoryItem does not exist."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "inventoryItem"
+                ],
+                "summary": "Update an InventoryItem",
+                "description": "Update an existing inventory item.",
+                "operationId": "inventoryItemUpdate",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the new inventory item.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "type_id",
+                        "in": "path",
+                        "description": "The id from the child object.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "type_type",
+                        "in": "path",
+                        "description": "The class from the child object.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "The user who owns the object.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "location_id",
+                        "in": "path",
+                        "description": "The location where the inventory item is stored.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/InventoryItem"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "422": {
+                        "description": "The entered parameters are not valid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/location": {
+            "get": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "List Locations",
+                "description": "Get a list of all locations.",
+                "operationId": "locationList",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Location"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Create Locations",
+                "description": "Create a new location.",
+                "operationId": "locationCreate",
+                "parameters": [
+                    {
+                        "name": "branch",
+                        "in": "path",
+                        "description": "The branch of the company.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "room",
+                        "in": "path",
+                        "description": "The room the location is in.",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "shelf",
+                        "in": "path",
+                        "description": "The shelf where the location is.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "compartment",
+                        "in": "path",
+                        "description": "The compartment in the shelf.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "path",
+                        "description": "A short description of the location.",
+                        "required": false,
+                        "schema": {
+                            "type": "text"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Location"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "422": {
+                        "description": "The entered parameters are not valid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/location/{id}": {
+            "get": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Show Location",
+                "description": "Get a specific location.",
+                "operationId": "locationShow",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Location"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "404": {
+                        "description": "The Location does not exist."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Delete Location",
+                "description": "Delete a location.",
+                "operationId": "locationDelete",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "404": {
+                        "description": "The Location does not exist."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "location"
+                ],
+                "summary": "Update a Location",
+                "description": "Update a existing location.",
+                "operationId": "locationUpdate",
+                "parameters": [
+                    {
+                        "name": "branch",
+                        "in": "path",
+                        "description": "The branch of the company.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "room",
+                        "in": "path",
+                        "description": "The room the location is in.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "shelf",
+                        "in": "path",
+                        "description": "The shelf where the location is.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "compartment",
+                        "in": "path",
+                        "description": "The compartment in the shelf.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "path",
+                        "description": "A short description of the location.",
+                        "required": false,
+                        "schema": {
+                            "type": "text"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Location"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "404": {
+                        "description": "The Location does not exist."
+                    },
+                    "422": {
+                        "description": "The entered parameters are not valid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
             }
         }
     },
@@ -246,7 +1030,10 @@
                         "example": "Dieser Ort gehört zu dem Lernenden Jeremy Becker"
                     },
                     "inventoryItems": {
-                        "$ref": "#/components/schemas/InventoryItem"
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/InventoryItem"
+                        }
                     },
                     "user": {
                         "$ref": "#/components/schemas/User"

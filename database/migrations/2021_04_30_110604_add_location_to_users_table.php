@@ -14,7 +14,7 @@ class AddLocationToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedBigInteger('location_id')->after('password');;
+            $table->unsignedBigInteger('location_id')->after('password')->nullable();
 
             $table->foreign('location_id')->references('id')->on('locations');
         });
