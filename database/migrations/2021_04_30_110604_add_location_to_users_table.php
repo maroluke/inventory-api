@@ -16,7 +16,7 @@ class AddLocationToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->unsignedBigInteger('location_id')->after('password')->nullable();
 
-            $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('SET NULL');
         });
     }
 

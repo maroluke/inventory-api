@@ -21,8 +21,8 @@ class CreateInventoryItemsTable extends Migration
             $table->unsignedBigInteger('location_id')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('location_id')->references('id')->on('locations');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('SET NULL');
         });
     }
 

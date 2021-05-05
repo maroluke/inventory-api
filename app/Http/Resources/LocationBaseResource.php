@@ -22,7 +22,7 @@ class LocationBaseResource extends JsonResource
             'compartment' => $this->compartment,
             'description' => $this->description,
             'user_id' => $this->user_id,
-            'inventoryItems' => $this->inventoryItems::lists('id')->toArray(),
+            'inventoryItems' => $this->inventoryItems->pluck('id')->toArray(),
         ];
     }
 }

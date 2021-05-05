@@ -42,7 +42,7 @@
                         }
                     },
                     {
-                        "name": "confirm_password",
+                        "name": "password_confirmation",
                         "in": "path",
                         "description": "The password confirmation to assure the password is correct.",
                         "required": true,
@@ -668,6 +668,9 @@
                     },
                     "422": {
                         "description": "The entered parameters are not valid."
+                    },
+                    "404": {
+                        "description": "The InventoryItem does not exist."
                     }
                 },
                 "security": [
@@ -917,6 +920,159 @@
                     },
                     "422": {
                         "description": "The entered parameters are not valid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "List Users",
+                "description": "Get a list of all users.",
+                "operationId": "userList",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/user/{id}": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Show User",
+                "description": "Get a specific user.",
+                "operationId": "userShow",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "404": {
+                        "description": "The User does not exist."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Delete User",
+                "description": "Delete an user.",
+                "operationId": "userDelete",
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "404": {
+                        "description": "The User does not exist."
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Update an User",
+                "description": "Update an existing user.",
+                "operationId": "userUpdate",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "The name of the user.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "location_id",
+                        "in": "path",
+                        "description": "The location of the book.",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "is_admin",
+                        "in": "path",
+                        "description": "If the user has admin privileges.",
+                        "required": false,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Authorization token invalid."
+                    },
+                    "422": {
+                        "description": "The entered parameters are not valid."
+                    },
+                    "404": {
+                        "description": "The User does not exist."
                     }
                 },
                 "security": [

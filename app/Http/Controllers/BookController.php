@@ -281,10 +281,10 @@ class BookController extends Controller
     {
         $this->validate($request, [
             'isbn' => 'string',
-            'author' => 'required|string',
+            'author' => 'string',
             'excerpt' => 'string',
             'release_date' => 'date',
-            'language' => 'required|string',
+            'language' => 'string',
         ]);
 
         $book = Book::findOrFail($id);
@@ -328,6 +328,11 @@ class BookController extends Controller
     public function destroy($id)
     {
         $book = Book::findOrFail($id);
+        if ($inventoryItem = $book->inventoryItem) {
+            $inventoryItem->type_id = null;
+            $inventoryItem->type_type = null;
+            $inventoryItem->save();
+        }
         $book->delete();
     }
 }

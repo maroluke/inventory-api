@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\InventoryItem;
 use App\Models\Location;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
@@ -67,5 +68,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function location() {
         return $this->belongsTo(Location::class);
+    }
+
+    public function inventoryItems() {
+        return $this->hasMany(InventoryItem::class);
     }
 }

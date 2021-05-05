@@ -19,7 +19,7 @@ class CreateLocationsTable extends Migration
             $table->string('room');
             $table->string('shelf')->nullable();
             $table->string('compartment')->nullable();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

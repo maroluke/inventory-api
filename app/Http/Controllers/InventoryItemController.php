@@ -231,6 +231,10 @@ class InventoryItemController extends Controller
      *      response=422,
      *      description="The entered parameters are not valid.",
      *  ),
+     *  @OA\Response(
+     *      response=404,
+     *      description="The InventoryItem does not exist.",
+     *  ),
      * )
      * 
      * Update the specified resource in storage.

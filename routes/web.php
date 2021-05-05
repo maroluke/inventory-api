@@ -55,4 +55,14 @@ $router->group([
     $router->get('/book/{id}', 'BookController@show');
     $router->patch('/book/{id}', 'BookController@update');
     $router->delete('/book/{id}', 'BookController@destroy');
+
+    $router->group([
+        'middleware' => 'admin'
+    ], function () use ($router) {
+        $router->get('/user', 'UserController@index');
+        $router->get('/user/{id}', 'UserController@show');
+        $router->patch('/user/{id}', 'UserController@update');
+        $router->delete('/user/{id}', 'UserController@destroy');
+    });
+
 });
