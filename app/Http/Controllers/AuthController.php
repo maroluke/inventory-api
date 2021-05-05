@@ -48,7 +48,7 @@ class AuthController extends Controller
      *      ),
      *  ),
      *  @OA\Parameter(
-     *      name="confirm_password",
+     *      name="password_confirmation",
      *      description="The password confirmation to assure the password is correct.",
      *      required=true,
      *      in="path",
@@ -144,18 +144,22 @@ class AuthController extends Controller
      */
     public function login()
     {
-        $credentials = request(['email', 'password']);
+        try {
+            $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            if (! $token = auth()->attempt($credentials)) {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'The given credentials are invalid!'], 422);
         }
-
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
-    }
+}
 
     /**
      * @OA\Post(

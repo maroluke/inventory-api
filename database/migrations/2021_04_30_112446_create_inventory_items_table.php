@@ -16,9 +16,9 @@ class CreateInventoryItemsTable extends Migration
         Schema::create('inventory_items', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->morphs('type');
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('location_id');
+            $table->nullableMorphs('type');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('location_id')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

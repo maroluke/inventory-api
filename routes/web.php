@@ -49,4 +49,10 @@ $router->group([
     $router->get('/inventoryitem/{id}', 'InventoryItemController@show');
     $router->patch('/inventoryitem/{id}', 'InventoryItemController@update');
     $router->delete('/inventoryitem/{id}', 'InventoryItemController@destroy');
+
+    $router->get('/book', 'BookController@index');
+    $router->post('/book', 'BookController@store');
+    $router->get('/book/{id}', 'BookController@show');
+    $router->patch('/book/{id}', 'BookController@update');
+    $router->delete('/book/{id}', 'BookController@destroy');
 });
