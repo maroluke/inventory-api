@@ -4,6 +4,11 @@
         "title": "Inventory-App",
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api"
+        }
+    ],
     "paths": {
         "/auth/register": {
             "post": {
@@ -16,7 +21,7 @@
                 "parameters": [
                     {
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "description": "The name of the user from the account.",
                         "required": true,
                         "schema": {
@@ -25,7 +30,7 @@
                     },
                     {
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "description": "The email of the user from the account.",
                         "required": true,
                         "schema": {
@@ -34,7 +39,7 @@
                     },
                     {
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "description": "The password the account will get to log in.",
                         "required": true,
                         "schema": {
@@ -43,7 +48,7 @@
                     },
                     {
                         "name": "password_confirmation",
-                        "in": "path",
+                        "in": "query",
                         "description": "The password confirmation to assure the password is correct.",
                         "required": true,
                         "schema": {
@@ -82,7 +87,7 @@
                 "parameters": [
                     {
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "description": "The email of the user.",
                         "required": true,
                         "schema": {
@@ -91,7 +96,7 @@
                     },
                     {
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "description": "The chosen password of the user.",
                         "required": true,
                         "schema": {
@@ -130,7 +135,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -153,7 +158,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -186,7 +191,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -200,7 +205,7 @@
                 "parameters": [
                     {
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "description": "The name of the new inventory item the book belongs to.",
                         "required": true,
                         "schema": {
@@ -209,7 +214,7 @@
                     },
                     {
                         "name": "user_id",
-                        "in": "path",
+                        "in": "query",
                         "description": "The user who owns the object.",
                         "required": false,
                         "schema": {
@@ -218,7 +223,7 @@
                     },
                     {
                         "name": "location_id",
-                        "in": "path",
+                        "in": "query",
                         "description": "The location where the book is stored.",
                         "required": false,
                         "schema": {
@@ -227,7 +232,7 @@
                     },
                     {
                         "name": "isbn",
-                        "in": "path",
+                        "in": "query",
                         "description": "The isbn of the book.",
                         "required": false,
                         "schema": {
@@ -236,16 +241,16 @@
                     },
                     {
                         "name": "author",
-                        "in": "path",
+                        "in": "query",
                         "description": "The author of the book.",
                         "required": true,
                         "schema": {
-                            "type": "sting"
+                            "type": "string"
                         }
                     },
                     {
                         "name": "excerpt",
-                        "in": "path",
+                        "in": "query",
                         "description": "A short text describing the book.",
                         "required": false,
                         "schema": {
@@ -254,16 +259,17 @@
                     },
                     {
                         "name": "release_date",
-                        "in": "path",
+                        "in": "query",
                         "description": "The date the book was released on.",
                         "required": false,
                         "schema": {
                             "type": "date"
-                        }
+                        },
+                        "example": "2021-04-30"
                     },
                     {
                         "name": "language",
-                        "in": "path",
+                        "in": "query",
                         "description": "The language the book is written in.",
                         "required": true,
                         "schema": {
@@ -291,7 +297,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -304,6 +310,16 @@
                 "summary": "Show Book",
                 "description": "Get a specific book.",
                 "operationId": "bookShow",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -324,7 +340,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -335,6 +351,16 @@
                 "summary": "Delete Book",
                 "description": "Delete a book.",
                 "operationId": "bookDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -348,7 +374,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -361,8 +387,16 @@
                 "operationId": "bookUpdate",
                 "parameters": [
                     {
-                        "name": "isbn",
+                        "name": "id",
                         "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "isbn",
+                        "in": "query",
                         "description": "The isbn of the book.",
                         "required": false,
                         "schema": {
@@ -371,16 +405,16 @@
                     },
                     {
                         "name": "author",
-                        "in": "path",
+                        "in": "query",
                         "description": "The author of the book.",
                         "required": false,
                         "schema": {
-                            "type": "sting"
+                            "type": "string"
                         }
                     },
                     {
                         "name": "excerpt",
-                        "in": "path",
+                        "in": "query",
                         "description": "A short text describing the book.",
                         "required": false,
                         "schema": {
@@ -389,16 +423,17 @@
                     },
                     {
                         "name": "release_date",
-                        "in": "path",
+                        "in": "query",
                         "description": "The date the book was released on.",
                         "required": false,
                         "schema": {
                             "type": "date"
-                        }
+                        },
+                        "example": "2021-04-30"
                     },
                     {
                         "name": "language",
-                        "in": "path",
+                        "in": "query",
                         "description": "The language the book is written in.",
                         "required": false,
                         "schema": {
@@ -426,7 +461,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -459,7 +494,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -473,7 +508,7 @@
                 "parameters": [
                     {
                         "name": "name",
-                        "in": "path",
+                        "in": "query",
                         "description": "The name of the new inventory item.",
                         "required": true,
                         "schema": {
@@ -482,7 +517,7 @@
                     },
                     {
                         "name": "type_id",
-                        "in": "path",
+                        "in": "query",
                         "description": "The id from the child object.",
                         "required": false,
                         "schema": {
@@ -491,7 +526,7 @@
                     },
                     {
                         "name": "type_type",
-                        "in": "path",
+                        "in": "query",
                         "description": "The class from the child object.",
                         "required": false,
                         "schema": {
@@ -500,7 +535,7 @@
                     },
                     {
                         "name": "user_id",
-                        "in": "path",
+                        "in": "query",
                         "description": "The user who owns the object.",
                         "required": false,
                         "schema": {
@@ -509,7 +544,7 @@
                     },
                     {
                         "name": "location_id",
-                        "in": "path",
+                        "in": "query",
                         "description": "The location where the inventory item is stored.",
                         "required": false,
                         "schema": {
@@ -537,7 +572,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -550,6 +585,16 @@
                 "summary": "Show InventoryItem",
                 "description": "Get a specific inventory item.",
                 "operationId": "inventoryItemShow",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -570,7 +615,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -581,6 +626,16 @@
                 "summary": "Delete InventoryItem",
                 "description": "Delete an inventory item.",
                 "operationId": "inventoryItemDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -594,7 +649,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -607,8 +662,16 @@
                 "operationId": "inventoryItemUpdate",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "id",
                         "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
                         "description": "The name of the new inventory item.",
                         "required": false,
                         "schema": {
@@ -617,7 +680,7 @@
                     },
                     {
                         "name": "type_id",
-                        "in": "path",
+                        "in": "query",
                         "description": "The id from the child object.",
                         "required": false,
                         "schema": {
@@ -626,7 +689,7 @@
                     },
                     {
                         "name": "type_type",
-                        "in": "path",
+                        "in": "query",
                         "description": "The class from the child object.",
                         "required": false,
                         "schema": {
@@ -635,7 +698,7 @@
                     },
                     {
                         "name": "user_id",
-                        "in": "path",
+                        "in": "query",
                         "description": "The user who owns the object.",
                         "required": false,
                         "schema": {
@@ -644,7 +707,7 @@
                     },
                     {
                         "name": "location_id",
-                        "in": "path",
+                        "in": "query",
                         "description": "The location where the inventory item is stored.",
                         "required": false,
                         "schema": {
@@ -675,7 +738,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -708,7 +771,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -722,7 +785,7 @@
                 "parameters": [
                     {
                         "name": "branch",
-                        "in": "path",
+                        "in": "query",
                         "description": "The branch of the company.",
                         "required": true,
                         "schema": {
@@ -731,7 +794,7 @@
                     },
                     {
                         "name": "room",
-                        "in": "path",
+                        "in": "query",
                         "description": "The room the location is in.",
                         "required": true,
                         "schema": {
@@ -740,7 +803,7 @@
                     },
                     {
                         "name": "shelf",
-                        "in": "path",
+                        "in": "query",
                         "description": "The shelf where the location is.",
                         "required": false,
                         "schema": {
@@ -749,7 +812,7 @@
                     },
                     {
                         "name": "compartment",
-                        "in": "path",
+                        "in": "query",
                         "description": "The compartment in the shelf.",
                         "required": false,
                         "schema": {
@@ -758,7 +821,7 @@
                     },
                     {
                         "name": "description",
-                        "in": "path",
+                        "in": "query",
                         "description": "A short description of the location.",
                         "required": false,
                         "schema": {
@@ -786,7 +849,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -799,6 +862,16 @@
                 "summary": "Show Location",
                 "description": "Get a specific location.",
                 "operationId": "locationShow",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -819,7 +892,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -830,6 +903,16 @@
                 "summary": "Delete Location",
                 "description": "Delete a location.",
                 "operationId": "locationDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -843,7 +926,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -856,8 +939,16 @@
                 "operationId": "locationUpdate",
                 "parameters": [
                     {
-                        "name": "branch",
+                        "name": "id",
                         "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "branch",
+                        "in": "query",
                         "description": "The branch of the company.",
                         "required": false,
                         "schema": {
@@ -866,7 +957,7 @@
                     },
                     {
                         "name": "room",
-                        "in": "path",
+                        "in": "query",
                         "description": "The room the location is in.",
                         "required": false,
                         "schema": {
@@ -875,7 +966,7 @@
                     },
                     {
                         "name": "shelf",
-                        "in": "path",
+                        "in": "query",
                         "description": "The shelf where the location is.",
                         "required": false,
                         "schema": {
@@ -884,7 +975,7 @@
                     },
                     {
                         "name": "compartment",
-                        "in": "path",
+                        "in": "query",
                         "description": "The compartment in the shelf.",
                         "required": false,
                         "schema": {
@@ -893,7 +984,7 @@
                     },
                     {
                         "name": "description",
-                        "in": "path",
+                        "in": "query",
                         "description": "A short description of the location.",
                         "required": false,
                         "schema": {
@@ -924,7 +1015,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -957,7 +1048,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -970,6 +1061,16 @@
                 "summary": "Show User",
                 "description": "Get a specific user.",
                 "operationId": "userShow",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -990,7 +1091,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -1001,6 +1102,16 @@
                 "summary": "Delete User",
                 "description": "Delete an user.",
                 "operationId": "userDelete",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success"
@@ -1014,7 +1125,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             },
@@ -1027,8 +1138,16 @@
                 "operationId": "userUpdate",
                 "parameters": [
                     {
-                        "name": "name",
+                        "name": "id",
                         "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
                         "description": "The name of the user.",
                         "required": false,
                         "schema": {
@@ -1037,7 +1156,7 @@
                     },
                     {
                         "name": "location_id",
-                        "in": "path",
+                        "in": "query",
                         "description": "The location of the book.",
                         "required": false,
                         "schema": {
@@ -1046,7 +1165,7 @@
                     },
                     {
                         "name": "is_admin",
-                        "in": "path",
+                        "in": "query",
                         "description": "If the user has admin privileges.",
                         "required": false,
                         "schema": {
@@ -1077,7 +1196,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "apiAuth": []
                     }
                 ]
             }
@@ -1231,6 +1350,16 @@
                 "xml": {
                     "name": "Location"
                 }
+            }
+        },
+        "securitySchemes": {
+            "apiAuth": {
+                "type": "http",
+                "description": "Login with email and password to get the authentication token",
+                "name": "Token based Based",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
     }

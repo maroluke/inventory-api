@@ -24,7 +24,7 @@ class AuthController extends Controller
      *      name="name",
      *      description="The name of the user from the account.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -33,7 +33,7 @@ class AuthController extends Controller
      *      name="email",
      *      description="The email of the user from the account.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -42,7 +42,7 @@ class AuthController extends Controller
      *      name="password",
      *      description="The password the account will get to log in.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -51,7 +51,7 @@ class AuthController extends Controller
      *      name="password_confirmation",
      *      description="The password confirmation to assure the password is correct.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -114,7 +114,7 @@ class AuthController extends Controller
      *      name="email",
      *      description="The email of the user.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -123,7 +123,7 @@ class AuthController extends Controller
      *      name="password",
      *      description="The chosen password of the user.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -168,7 +168,7 @@ class AuthController extends Controller
      *  description="Log out and make the token invalid.",
      *  operationId="authLogout",
      *  tags={"auth"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
      *  @OA\Response(
      *      response=200,
      *      description="Log out successful.",
@@ -193,7 +193,7 @@ class AuthController extends Controller
      *  description="Refresh the time on the access token.",
      *  operationId="authRefresh",
      *  tags={"auth"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
      *  @OA\Response(
      *      response=200,
      *      description="Your access token time is refreshed.",

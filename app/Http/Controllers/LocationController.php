@@ -15,7 +15,7 @@ class LocationController extends Controller
      *  description="Get a list of all locations.",
      *  operationId="locationList",
      *  tags={"location"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -46,12 +46,12 @@ class LocationController extends Controller
      *  description="Create a new location.",
      *  operationId="locationCreate",
      *  tags={"location"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
      *  @OA\Parameter(
      *      name="branch",
      *      description="The branch of the company.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -60,7 +60,7 @@ class LocationController extends Controller
      *      name="room",
      *      description="The room the location is in.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -69,7 +69,7 @@ class LocationController extends Controller
      *      name="shelf",
      *      description="The shelf where the location is.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -78,7 +78,7 @@ class LocationController extends Controller
      *      name="compartment",
      *      description="The compartment in the shelf.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -87,7 +87,7 @@ class LocationController extends Controller
      *      name="description",
      *      description="A short description of the location.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="text",
      *      ),
@@ -141,7 +141,15 @@ class LocationController extends Controller
      *  description="Get a specific location.",
      *  operationId="locationShow",
      *  tags={"location"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -175,12 +183,20 @@ class LocationController extends Controller
      *  description="Update a existing location.",
      *  operationId="locationUpdate",
      *  tags={"location"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Parameter(
      *      name="branch",
      *      description="The branch of the company.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -189,7 +205,7 @@ class LocationController extends Controller
      *      name="room",
      *      description="The room the location is in.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -198,7 +214,7 @@ class LocationController extends Controller
      *      name="shelf",
      *      description="The shelf where the location is.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -207,7 +223,7 @@ class LocationController extends Controller
      *      name="compartment",
      *      description="The compartment in the shelf.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -216,7 +232,7 @@ class LocationController extends Controller
      *      name="description",
      *      description="A short description of the location.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="text",
      *      ),
@@ -275,7 +291,15 @@ class LocationController extends Controller
      *  description="Delete a location.",
      *  operationId="locationDelete",
      *  tags={"location"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",

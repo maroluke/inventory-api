@@ -16,7 +16,7 @@ class BookController extends Controller
      *  description="Get a list of all books.",
      *  operationId="bookList",
      *  tags={"book"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -47,12 +47,12 @@ class BookController extends Controller
      *  description="Create a new book.",
      *  operationId="bookCreate",
      *  tags={"book"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
      *  @OA\Parameter(
      *      name="name",
      *      description="The name of the new inventory item the book belongs to.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -61,7 +61,7 @@ class BookController extends Controller
      *      name="user_id",
      *      description="The user who owns the object.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="integer",
      *      ),
@@ -70,7 +70,7 @@ class BookController extends Controller
      *      name="location_id",
      *      description="The location where the book is stored.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="integer",
      *      ),
@@ -79,7 +79,7 @@ class BookController extends Controller
      *      name="isbn",
      *      description="The isbn of the book.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -88,16 +88,16 @@ class BookController extends Controller
      *      name="author",
      *      description="The author of the book.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
-     *          type="sting",
+     *          type="string",
      *      ),
      *  ),
      *  @OA\Parameter(
      *      name="excerpt",
      *      description="A short text describing the book.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="text",
      *      ),
@@ -106,7 +106,8 @@ class BookController extends Controller
      *      name="release_date",
      *      description="The date the book was released on.",
      *      required=false,
-     *      in="path",
+     *      in="query",
+     *      example="2021-04-30",
      *      @OA\Schema(
      *          type="date",
      *      ),
@@ -115,7 +116,7 @@ class BookController extends Controller
      *      name="language",
      *      description="The language the book is written in.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -176,7 +177,15 @@ class BookController extends Controller
      *  description="Get a specific book.",
      *  operationId="bookShow",
      *  tags={"book"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -210,12 +219,20 @@ class BookController extends Controller
      *  description="Update a existing book.",
      *  operationId="bookUpdate",
      *  tags={"book"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Parameter(
      *      name="isbn",
      *      description="The isbn of the book.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -224,16 +241,16 @@ class BookController extends Controller
      *      name="author",
      *      description="The author of the book.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
-     *          type="sting",
+     *          type="string",
      *      ),
      *  ),
      *  @OA\Parameter(
      *      name="excerpt",
      *      description="A short text describing the book.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="text",
      *      ),
@@ -242,7 +259,8 @@ class BookController extends Controller
      *      name="release_date",
      *      description="The date the book was released on.",
      *      required=false,
-     *      in="path",
+     *      in="query",
+     *      example="2021-04-30",
      *      @OA\Schema(
      *          type="date",
      *      ),
@@ -251,7 +269,7 @@ class BookController extends Controller
      *      name="language",
      *      description="The language the book is written in.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -305,7 +323,15 @@ class BookController extends Controller
      *  description="Delete a book.",
      *  operationId="bookDelete",
      *  tags={"book"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",

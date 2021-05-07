@@ -28,7 +28,11 @@ class InventoryItemResource extends JsonResource
             'user' => new UserBaseResource($this->user),
             'location' => new LocationBaseResource($this->location),
             'in_use' => $this->when($this->relationLoaded('location'), function() {
-                return $this->location->user == null ? false : true;
+                if ($this->location) {
+                    return $this->location->user == null ? false : true;
+                } else {
+                    return false;
+                }
             }),
         ];
     }

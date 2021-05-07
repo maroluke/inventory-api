@@ -15,7 +15,7 @@ class UserController extends Controller
      *  description="Get a list of all users.",
      *  operationId="userList",
      *  tags={"user"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -46,7 +46,15 @@ class UserController extends Controller
      *  description="Get a specific user.",
      *  operationId="userShow",
      *  tags={"user"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -79,12 +87,20 @@ class UserController extends Controller
      *  description="Update an existing user.",
      *  operationId="userUpdate",
      *  tags={"user"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Parameter(
      *      name="name",
      *      description="The name of the user.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -93,7 +109,7 @@ class UserController extends Controller
      *      name="location_id",
      *      description="The location of the book.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="integer",
      *      ),
@@ -102,7 +118,7 @@ class UserController extends Controller
      *      name="is_admin",
      *      description="If the user has admin privileges.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="boolean",
      *      ),
@@ -154,7 +170,15 @@ class UserController extends Controller
      *  description="Delete an user.",
      *  operationId="userDelete",
      *  tags={"user"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",

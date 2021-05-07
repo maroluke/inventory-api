@@ -15,7 +15,7 @@ class InventoryItemController extends Controller
      *  description="Get a list of all inventoryItems.",
      *  operationId="inventoryItemList",
      *  tags={"inventoryItem"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -46,12 +46,12 @@ class InventoryItemController extends Controller
      *  description="Create a new inventory item.",
      *  operationId="inventoryItemCreate",
      *  tags={"inventoryItem"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
      *  @OA\Parameter(
      *      name="name",
      *      description="The name of the new inventory item.",
      *      required=true,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -60,7 +60,7 @@ class InventoryItemController extends Controller
      *      name="type_id",
      *      description="The id from the child object.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="integer",
      *      ),
@@ -69,7 +69,7 @@ class InventoryItemController extends Controller
      *      name="type_type",
      *      description="The class from the child object.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -78,7 +78,7 @@ class InventoryItemController extends Controller
      *      name="user_id",
      *      description="The user who owns the object.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="integer",
      *      ),
@@ -87,7 +87,7 @@ class InventoryItemController extends Controller
      *      name="location_id",
      *      description="The location where the inventory item is stored.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="integer",
      *      ),
@@ -139,7 +139,15 @@ class InventoryItemController extends Controller
      *  description="Get a specific inventory item.",
      *  operationId="inventoryItemShow",
      *  tags={"inventoryItem"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -172,12 +180,20 @@ class InventoryItemController extends Controller
      *  description="Update an existing inventory item.",
      *  operationId="inventoryItemUpdate",
      *  tags={"inventoryItem"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Parameter(
      *      name="name",
      *      description="The name of the new inventory item.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -186,7 +202,7 @@ class InventoryItemController extends Controller
      *      name="type_id",
      *      description="The id from the child object.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="integer",
      *      ),
@@ -195,7 +211,7 @@ class InventoryItemController extends Controller
      *      name="type_type",
      *      description="The class from the child object.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="string",
      *      ),
@@ -204,7 +220,7 @@ class InventoryItemController extends Controller
      *      name="user_id",
      *      description="The user who owns the object.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="integer",
      *      ),
@@ -213,7 +229,7 @@ class InventoryItemController extends Controller
      *      name="location_id",
      *      description="The location where the inventory item is stored.",
      *      required=false,
-     *      in="path",
+     *      in="query",
      *      @OA\Schema(
      *          type="integer",
      *      ),
@@ -270,7 +286,15 @@ class InventoryItemController extends Controller
      *  description="Delete an inventory item.",
      *  operationId="inventoryItemDelete",
      *  tags={"inventoryItem"},
-     *  security={{"bearerAuth":{}}},
+     *  security={{"apiAuth": {}}},
+     *  @OA\Parameter(
+     *      name="id",
+     *      required=true,
+     *      in="path",
+     *      @OA\Schema(
+     *          type="integer",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",

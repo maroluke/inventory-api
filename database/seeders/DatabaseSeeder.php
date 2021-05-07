@@ -17,6 +17,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $user = new User;
+        $user->name = 'admin';
+        $user->email = 'admin@twofold.swiss';
+        $user->password = app('hash')->make('password');
+        $user->is_admin = 1;
+        $user->save();
+
         User::factory()->count(5)->create();
         Location::factory()->count(60)->create();
         InventoryItem::factory()->count(100)->create();

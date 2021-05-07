@@ -37,16 +37,15 @@ class UserTest extends TestCase
         $this->seeStatusCode(422);
     }
 
-    /**
-     * Test the user registration with wrong data.
+     /**
+     * Test the user registration with missing name.
      *
      * @return void
      */
-    public function testRegisterWrongData()
+    public function testRegisterMissingName()
     {
         $this->post("api/auth/register", [
-            "name" => "Jeremy Becker",
-            "email" => "jeremy.becker",
+            "email" => "jeremy.becker@twofold.swiss",
             "password" => "1234",
             "password_confirmation" => "1234"
         ]);
@@ -54,16 +53,61 @@ class UserTest extends TestCase
     }
 
     /**
-     * Test the user registration with missing data.
+     * Test the user registration with missing email.
      *
      * @return void
      */
-    public function testRegisterMissingData()
+    public function testRegisterMissingEmail()
     {
         $this->post("api/auth/register", [
-            "email" => "jeremy.becker",
+            "name" => "Jeremy Becker",
             "password" => "1234",
             "password_confirmation" => "1234"
+        ]);
+        $this->seeStatusCode(422);
+    }
+
+    /**
+     * Test the user registration with missing password.
+     *
+     * @return void
+     */
+    public function testRegisterMissingPassword()
+    {
+        $this->post("api/auth/register", [
+            "name" => "Jeremy Becker",
+            "email" => "jeremy.becker@twofold.swiss",
+            "password_confirmation" => "1234"
+        ]);
+        $this->seeStatusCode(422);
+    }
+
+    /**
+     * Test the user registration with missing password confirmation.
+     *
+     * @return void
+     */
+    public function testRegisterMissingPasswordConfirmation()
+    {
+        $this->post("api/auth/register", [
+            "name" => "Jeremy Becker",
+            "email" => "jeremy.becker@twofold.swiss",
+            "password" => "1234",
+        ]);
+        $this->seeStatusCode(422);
+    }
+
+    /**
+     * Test the user registration with wrong email format.
+     *
+     * @return void
+     */
+    public function testRegisterWrongEmailFormat()
+    {
+        $this->post("api/auth/register", [
+            "name" => "Jeremy Becker",
+            "email" => "jeremy.becker@twofold",
+            "password" => "1234",
         ]);
         $this->seeStatusCode(422);
     }
@@ -92,6 +136,20 @@ class UserTest extends TestCase
         $this->post("api/auth/login", [
             "email" => "jeremy.becker@twofold.swiss",
             "password" => "wrongPassword",
+        ]);
+        $this->seeStatusCode(401);
+    }
+
+    /**
+     * Test the user login with unregistered email.
+     *
+     * @return void
+     */
+    public function testLoginFalseEmail()
+    {
+        $this->post("api/auth/login", [
+            "email" => "jeremy.becker1@twofold.swiss",
+            "password" => "1234",
         ]);
         $this->seeStatusCode(401);
     }
