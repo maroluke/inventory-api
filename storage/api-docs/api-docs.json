@@ -275,6 +275,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "The category the book belongs to.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -439,6 +448,15 @@
                         "schema": {
                             "type": "string"
                         }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "The category the book belongs to.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
                     }
                 ],
                 "responses": {
@@ -550,6 +568,16 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "tags",
+                        "in": "query",
+                        "description": "The tags of the InventoryItem.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "['book']"
                     }
                 ],
                 "responses": {
@@ -713,6 +741,16 @@
                         "schema": {
                             "type": "integer"
                         }
+                    },
+                    {
+                        "name": "tags",
+                        "in": "query",
+                        "description": "The tags of the InventoryItem.",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "['book']"
                     }
                 ],
                 "responses": {
@@ -1237,6 +1275,10 @@
                     },
                     "inventoryItem": {
                         "$ref": "#/components/schemas/InventoryItem"
+                    },
+                    "category": {
+                        "type": "string",
+                        "example": "Java"
                     }
                 },
                 "type": "object",
@@ -1266,6 +1308,10 @@
                     },
                     "location": {
                         "$ref": "#/components/schemas/Location"
+                    },
+                    "tags": {
+                        "type": "string",
+                        "example": "['Buch']"
                     }
                 },
                 "type": "object",

@@ -20,6 +20,7 @@ class InventoryItemCreateTest extends TestCase
            'name' => 'Buch',
            'user_id' => $user->id,
            'location_id' => '1',  
+           'tags' => 'book',
        ]);
        $this->seeStatusCode(200);
    }

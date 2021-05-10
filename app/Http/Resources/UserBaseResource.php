@@ -19,6 +19,9 @@ class UserBaseResource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
             'location_id' => $this->location_id,
+            'inventoryItems' => $this->when($this->relationLoaded('location'), function () {
+                if ($this->location) return $this->location->inventoryItems->pluck('id')->toArray();
+            }),
         ];
     }
 }

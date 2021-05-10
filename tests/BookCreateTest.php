@@ -25,6 +25,7 @@ class CreateBook extends TestCase
             'excerpt' => 'About the book.',
             'releaseDate' => '01-01-2000 00:00:00',
             'language' => 'de',  
+            'category' => 'Java',
         ]);
         $this->seeStatusCode(200);
     }

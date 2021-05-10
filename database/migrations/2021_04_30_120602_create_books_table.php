@@ -20,6 +20,7 @@ class CreateBooksTable extends Migration
             $table->text('excerpt')->nullable();
             $table->timestamp('release_date')->nullable();
             $table->string('language');
+            $table->string('category')->nullable();
             $table->timestamps();
         });
     }

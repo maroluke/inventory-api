@@ -19,6 +19,7 @@ class CreateInventoryItemsTable extends Migration
             $table->nullableMorphs('type');
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('location_id')->nullable();
+            $table->string('tags')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');

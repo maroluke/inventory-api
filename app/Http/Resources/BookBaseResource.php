@@ -21,6 +21,7 @@ class BookBaseResource extends JsonResource
             'excerpt' => $this->excerpt,
             'language' => $this->language,
             'inventoryItem' => $this->inventoryItem->id,
+            'category' => $this->category,
         ];
     }
 }

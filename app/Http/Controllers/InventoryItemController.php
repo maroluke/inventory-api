@@ -92,6 +92,16 @@ class InventoryItemController extends Controller
      *          type="integer",
      *      ),
      *  ),
+     * @OA\Parameter(
+     *      name="tags",
+     *      description="The tags of the InventoryItem.",
+     *      required=false,
+     *      in="query",
+     *      example="book",
+     *      @OA\Schema(
+     *          type="string",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -119,6 +129,7 @@ class InventoryItemController extends Controller
             'type_id' => 'poly_exists:type_type',
             'user_id' => 'exists:App\Models\User,id',
             'location_id' => 'exists:App\Models\Location,id',
+            'tags' => 'string',
         ]);
 
         $inventoryItem = new InventoryItem;
@@ -127,6 +138,7 @@ class InventoryItemController extends Controller
         $inventoryItem->type_type = $request->type_type;
         $inventoryItem->user_id = $request->user_id;
         $inventoryItem->location_id = $request->location_id;
+        $inventoryItem->tags = $request->tags;
         $inventoryItem->save();
 
         return $inventoryItem;
@@ -234,6 +246,16 @@ class InventoryItemController extends Controller
      *          type="integer",
      *      ),
      *  ),
+     * @OA\Parameter(
+     *      name="tags",
+     *      description="The tags of the InventoryItem.",
+     *      required=false,
+     *      in="query",
+     *      example="book",
+     *      @OA\Schema(
+     *          type="string",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -266,6 +288,7 @@ class InventoryItemController extends Controller
             'type_id' => 'poly_exists:type_type',
             'user_id' => 'exists:App\Models\User,id',
             'location_id' => 'exists:App\Models\Location,id',
+            'tags' => 'string',
         ]);
 
         $inventoryItem = InventoryItem::findOrFail($id);
@@ -274,6 +297,7 @@ class InventoryItemController extends Controller
         if ($request->type_type) $inventoryItem->type_type = $request->type_type;
         if ($request->user_id) $inventoryItem->user_id = $request->user_id;
         if ($request->location_id) $inventoryItem->location_id = $request->location_id;
+        if ($request->tags) $inventoryItem->tags = $request->tags;
         $inventoryItem->save();
 
         return $inventoryItem;

@@ -24,6 +24,7 @@ class InventoryItemBaseResource extends JsonResource
             'in_use' => $this->when($this->relationLoaded('location'), function() {
                 return $this->location->user == null ? false : true;
             }),
+            'tags' => $this->tags,
         ];
     }
 }

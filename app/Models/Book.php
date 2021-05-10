@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  *  @OA\Property(property="release_date", type="date", example="02-20-2019"),
  *  @OA\Property(property="language", type="string", example="Deutsch"),
  *  @OA\Property(property="inventoryItem", ref="#/components/schemas/InventoryItem"),
+ *  @OA\Property(property="category", type="string", example="Java"),
  * )
  */
 class Book extends Model

@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  *  @OA\Property(property="type", ref="#/components/schemas/Book"),
  *  @OA\Property(property="user", ref="#/components/schemas/User"),
  *  @OA\Property(property="location", ref="#/components/schemas/Location"),
+ *  @OA\Property(property="tags", type="string", example="['Buch']"),
  * )
  */
 class InventoryItem extends Model

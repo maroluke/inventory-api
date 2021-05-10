@@ -121,6 +121,15 @@ class BookController extends Controller
      *          type="string",
      *      ),
      *  ),
+     *  @OA\Parameter(
+     *      name="category",
+     *      description="The category the book belongs to.",
+     *      required=false,
+     *      in="query",
+     *      @OA\Schema(
+     *          type="string",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -152,6 +161,7 @@ class BookController extends Controller
             'excerpt' => 'string',
             'release_date' => 'date',
             'language' => 'required|string',
+            'category' => 'string',
         ]);
 
         $inventoryItemController = new InventoryItemController;
@@ -163,6 +173,7 @@ class BookController extends Controller
         $book->excerpt = $request->excerpt;
         $book->release_date = $request->release_date;
         $book->language = $request->language;
+        $book->category = $request->category;
         $book->save();
 
         $inventoryItem->type()->associate($book)->save();
@@ -274,6 +285,15 @@ class BookController extends Controller
      *          type="string",
      *      ),
      *  ),
+     *  @OA\Parameter(
+     *      name="category",
+     *      description="The category the book belongs to.",
+     *      required=false,
+     *      in="query",
+     *      @OA\Schema(
+     *          type="string",
+     *      ),
+     *  ),
      *  @OA\Response(
      *      response=200,
      *      description="Success",
@@ -303,6 +323,7 @@ class BookController extends Controller
             'excerpt' => 'string',
             'release_date' => 'date',
             'language' => 'string',
+            'category' => 'string',
         ]);
 
         $book = Book::findOrFail($id);
@@ -311,6 +332,7 @@ class BookController extends Controller
         if ($request->excerpt) $book->excerpt = $request->excerpt;
         if ($request->release_date) $book->release_date = $request->release_date;
         if ($request->language) $book->language = $request->language;
+        if ($request->category) $book->category = $request->category;
         $book->save();
 
         return $book;

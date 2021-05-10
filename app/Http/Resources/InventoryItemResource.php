@@ -34,6 +34,7 @@ class InventoryItemResource extends JsonResource
                     return false;
                 }
             }),
+            'tags' => $this->tags,
         ];
     }
 }

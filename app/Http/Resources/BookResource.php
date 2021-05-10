@@ -22,6 +22,7 @@ class BookResource extends JsonResource
             'excerpt' => $this->excerpt,
             'language' => $this->language,
             'inventoryItem' => new InventoryItemBaseResource($this->inventoryItem),
+            'category' => $this->category,
         ];
     }
 }
