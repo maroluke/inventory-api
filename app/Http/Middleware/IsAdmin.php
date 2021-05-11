@@ -6,8 +6,6 @@ use Closure;
 
 class IsAdmin
 {
-
-
     /**
      * Handle an incoming request.
      *
